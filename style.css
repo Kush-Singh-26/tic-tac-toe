@@ -1,0 +1,99 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+dialog{
+    border: none;
+    z-index: 1000;
+}
+form{
+    display: grid;
+    width: 100vw;
+    background-color: #90e0ef;
+    align-items:center;
+    padding: 20px;
+
+}
+.form-upper{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.container-info{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.info{
+    display: flex;
+    flex-direction: column;
+}
+
+.letter{
+    font-size: 80px;
+    font-family: "Skranji", system-ui;
+  font-weight: 700;
+  font-style:normal;
+}
+
+input{
+    background-color: #caf0f8;
+    border-radius: 12px;
+    padding: 10px;
+    border: none;
+    margin-left: 20px;
+}
+
+input:hover{
+    border: 2px solid #03045e;
+
+}
+input:focus{
+    border: 2px solid #03045e;
+    outline: none;
+}
+
+.form-lower{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#submit{
+    background-color: #0077b6;
+    color: white;
+    font-size: 20px;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#submit:hover{
+    background-color:#03045e ;
+}
+main{
+    display: none;
+}
+.container{
+    display: grid;
+    width: 500px;
+    height: 500px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    margin: 20px;
+}
+
+.grid-box{
+    background-color: #caf0f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    
+}
