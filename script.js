@@ -17,19 +17,27 @@ const displayController = (function(){
     const main = document.querySelector("main");
     let playerone; 
     let playertwo;
-    const dialog = document.querySelector("dialog");
+    let currentPlayer = "X";
+    const dialog = document.querySelector(".dialog");
     submitbtn.addEventListener('click', (e)=>{
         e.preventDefault();
         playerone = document.querySelector("#playerone").value;
         playertwo = document.querySelector("#playertwo").value;
-        dialog.close();
+        main.classList.remove("main-hide");
+        main.classList.add("main-show");
+        dialog.style.display = "none";
     })
     cells.forEach((cell) =>{
         cell.addEventListener('click', (e) =>{
-            console.log(GameBoardModule.getField(parseInt(e.target.dataset.index)))
+            const index = parseInt(e.target.dataset.index);
+            if(GameBoardModule.getField(index) === ""){
+                GameBoardModule.setField(index,currentPlayer);
+                e.target.textContent = currentPlayer;
+                currentPlayer = currentPlayer === "X" ? "O" : "X";
+            }
+
         })
     })
-    dialog.showModal();
 
     return{};
 })
