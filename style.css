@@ -66,6 +66,7 @@ input {
     padding: 10px;
     border: none;
     margin-left: 20px;
+    width: 100%;
 }
 
 input:hover {
@@ -103,6 +104,8 @@ input:focus {
 
 .main-show {
     display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .container {
@@ -122,3 +125,4 @@ input:focus {
     border: 1px solid black;
 
 }
+
