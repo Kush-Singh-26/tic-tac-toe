@@ -114,7 +114,6 @@ input:focus {
     display: grid;
     width: 50%;
     max-height: max-content;
-    gap: 10px;
     aspect-ratio: 1/1;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
