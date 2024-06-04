@@ -10,7 +10,7 @@ body {
 
 header {
     text-align: center;
-    font-size: 50px;
+    font-size: 2rem;
     font-family: "Skranji", system-ui;
     font-weight: 700;
     font-style: normal;
@@ -54,7 +54,7 @@ form {
 }
 
 .letter {
-    font-size: 80px;
+    font-size:50px;
     font-family: "Skranji", system-ui;
     font-weight: 700;
     font-style: normal;
@@ -110,8 +110,10 @@ input:focus {
 
 .container {
     display: grid;
-    width: 500px;
-    height: 500px;
+    width: 50%;
+    max-height: max-content;
+    gap: 10px;
+    aspect-ratio: 1/1;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
     margin: 20px;
@@ -123,6 +125,7 @@ input:focus {
     justify-content: center;
     align-items: center;
     border: 1px solid black;
-
+    border-radius: 12px;
+    aspect-ratio: 1/1;
 }
 

@@ -3,52 +3,137 @@ const GameBoardModule = (function () {
 
     const setField = (index, sign) => {
         gameboard[index] = sign;
-    }
+    };
 
     const getField = (index) => {
         return gameboard[index];
-    }
-    return { gameboard, setField, getField };
+    };
+
+    const resetBoard = () => {
+        for (let i = 0; i < gameboard.length; i++) {
+            gameboard[i] = "";
+        }
+    };
+
+    return { gameboard, setField, getField, resetBoard };
 })();
 
-const displayController = (function () {
+const DisplayController = (function () {
     const cells = document.querySelectorAll(".grid-box");
     const submitbtn = document.querySelector("#submit");
     const main = document.querySelector("main");
-    let playerone;
-    let playertwo;
-    let currentPlayer = "X";
     const dialog = document.querySelector(".dialog");
-    const player1 = document.querySelector(".info-1");
-    const player2 = document.querySelector(".info-2");
+    const player1Display = document.querySelector(".info-1");
+    const player2Display = document.querySelector(".info-2");
 
-    submitbtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        playerone = document.querySelector("#playerone").value;
-        playertwo = document.querySelector("#playertwo").value;
-        player1.textContent = playerone;
-        player2.textContent = playertwo;
+    const updatePlayerNames = (playerone, playertwo) => {
+        player1Display.textContent = playerone;
+        player2Display.textContent = playertwo;
+    };
+
+    const showMain = () => {
         main.classList.remove("main-hide");
         main.classList.add("main-show");
         dialog.style.display = "none";
-    })
-    cells.forEach((cell) => {
-        cell.addEventListener('click', (e) => {
-            const index = parseInt(e.target.dataset.index);
-            if (GameBoardModule.getField(index) === "") {
-                GameBoardModule.setField(index, currentPlayer);
-                e.target.textContent = currentPlayer;
+    };
+
+    const addCellClickListeners = (handleCellClick) => {
+        cells.forEach((cell) => {
+            cell.addEventListener('click', (e) => {
+                const index = parseInt(e.target.dataset.index);
+                handleCellClick(index, e.target);
+            });
+        });
+    };
+
+    const updateCell = (cell, currentPlayer) => {
+        cell.textContent = currentPlayer;
+    };
+
+    const resetDisplay = () => {
+        cells.forEach((cell) => {
+            cell.textContent = "";
+        });
+    };
+
+    const displayWinner = (winner) => {
+        alert(`Player ${winner} wins!`);
+    };
+
+    return {
+        submitbtn,
+        addCellClickListeners,
+        updatePlayerNames,
+        showMain,
+        updateCell,
+        resetDisplay,
+        displayWinner
+    };
+})();
+
+const GameController = (function (GameBoardModule, DisplayController) {
+    let currentPlayer = "X";
+    let playerone;
+    let playertwo;
+
+    const init = () => {
+        DisplayController.submitbtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            playerone = document.querySelector("#playerone").value;
+            playertwo = document.querySelector("#playertwo").value;
+            DisplayController.updatePlayerNames(playerone, playertwo);
+            DisplayController.showMain();
+        });
+
+        DisplayController.addCellClickListeners(handleCellClick);
+    };
+
+    const handleCellClick = (index, cell) => {
+        if (GameBoardModule.getField(index) === "") {
+            GameBoardModule.setField(index, currentPlayer);
+            console.log(`Updated cell ${index} with ${currentPlayer}`);
+            DisplayController.updateCell(cell, currentPlayer);
+            console.log(`Updated cell ${index} with ${currentPlayer}`);
+            
+            if (checkWinner(currentPlayer)) {
+                DisplayController.displayWinner(currentPlayer);
+                resetGame();
+            } else {
                 currentPlayer = currentPlayer === "X" ? "O" : "X";
             }
+        }
+    };
 
-        })
-    })
+    const checkWinner = (player) => {
+        const winPatterns = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6]
+        ];
 
-    return {};
-})
+        return winPatterns.some(pattern => 
+            pattern.every(index => GameBoardModule.getField(index) === player)
+        );
+    };
 
-const gameController = (() => {
+    const playRound = (index, player) => {
+        console.log(`Cell Index: ${index}, Player: ${player}`);
+    };
 
+    const resetGame = () => {
+        GameBoardModule.resetBoard();
+        DisplayController.resetDisplay();
+        currentPlayer = "X";
+    };
+
+    return { init, resetGame };
+})(GameBoardModule, DisplayController);
+
+document.addEventListener("DOMContentLoaded", () => {
+    GameController.init();
 });
-displayController();
-
