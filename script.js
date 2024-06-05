@@ -52,10 +52,8 @@ const DisplayController = (function () {
         });
     };
 
-    const addResetBtn = (resetBtn) =>{
+    const addResetBtn = () =>{
         resetBtn.addEventListener('click',() =>{
-            resetBtn.classList.remove("reset-hide");
-            resetBtn.classList.add("reset-show");
             GameController.resetGame();
         });
     };
@@ -121,7 +119,7 @@ const GameController = (function (GameBoardModule, DisplayController) {
         DisplayController.displayCurrentPlayer(currentPlayer);
 
         DisplayController.addCellClickListeners(handleCellClick);
-        DisplayController.addResetBtn(DisplayController.resetBtn);
+        DisplayController.addResetBtn();
     };
 
     const handleCellClick = (index, cell) => {
