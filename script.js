@@ -52,11 +52,12 @@ const DisplayController = (function () {
         });
     };
 
-    const addResetBtn = () =>{
-        resetBtn.addEventListener('click',() =>{
+    const addResetBtn = () => {
+        resetBtn.addEventListener('click', () => {
             GameController.resetGame();
         });
     };
+
     const updateCell = (cell, currentPlayer) => {
         cell.textContent = currentPlayer;
     };
@@ -68,23 +69,23 @@ const DisplayController = (function () {
     };
 
     const displayWinner = (winner) => {
-        scoreDisplay.textContent = `${winner}`;
+        scoreDisplay.textContent = `${winner} wins!`;
     };
 
     const displayTie = () => {
         scoreDisplay.textContent = "It's a tie!";
     };
 
-    const displayCurrentPlayer = (currentPlayer) =>{
-        if(currentPlayer === "X"){
+    const displayCurrentPlayer = (currentPlayer) => {
+        if (currentPlayer === "X") {
             player1Area.style.backgroundColor = "rgb(144, 238, 144)";
             player2Area.style.backgroundColor = "rgb(176, 196, 222)";
-        }
-        else{
+        } else {
             player2Area.style.backgroundColor = "rgb(144, 238, 144)";
             player1Area.style.backgroundColor = "rgb(176, 196, 222)";
         }
-    }
+    };
+
     return {
         submitbtn,
         addCellClickListeners,
@@ -95,7 +96,7 @@ const DisplayController = (function () {
         displayWinner,
         displayTie,
         displayCurrentPlayer,
-        resetBtn
+        addResetBtn
     };
 })();
 
@@ -126,24 +127,22 @@ const GameController = (function (GameBoardModule, DisplayController) {
         if (GameBoardModule.getField(index) === "") {
             GameBoardModule.setField(index, currentPlayer);
             DisplayController.updateCell(cell, currentPlayer);
-            console.log(`Updated cell ${index} with ${currentPlayer}`);
-            
+
             if (checkWinner(currentPlayer)) {
                 DisplayController.displayWinner(currentPlayer);
-                if(currentPlayer === "X")
-                    score1 = score1 + 1;
-                else
-                    score2 = score2 + 1;
-
-                    console.log(`X:${score1} Y:${score2}`)
-                
+                if (currentPlayer === "X") {
+                    score1++;
+                } else {
+                    score2++;
+                }
+                updateScore();
             } else if (checkTie()) {
                 DisplayController.displayTie();
-
+                tie++;
+                updateScore();
             } else {
                 currentPlayer = currentPlayer === "X" ? "O" : "X";
                 DisplayController.displayCurrentPlayer(currentPlayer);
-
             }
         }
     };
@@ -160,7 +159,7 @@ const GameController = (function (GameBoardModule, DisplayController) {
             [2, 4, 6]
         ];
 
-        return winPatterns.some(pattern => 
+        return winPatterns.some(pattern =>
             pattern.every(index => GameBoardModule.getField(index) === player)
         );
     };
@@ -175,6 +174,10 @@ const GameController = (function (GameBoardModule, DisplayController) {
         initialPlayer = initialPlayer === "X" ? "O" : "X"; // Change initial player
         currentPlayer = initialPlayer;
         DisplayController.displayCurrentPlayer(currentPlayer);
+    };
+
+    const updateScore = () => {
+        scoreDisplay.textContent = `X: ${score1} - O: ${score2} - Ties: ${tie}`;
     };
 
     return { init, resetGame };
