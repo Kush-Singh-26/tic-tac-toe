@@ -15,6 +15,8 @@
 <body>
     <header>
         <h1>Tic-Tac-Toe</h1>
+        <div class="current-score"></div>
+           <a href="https://github.com/Kush-Singh-26">Made by Kush</a> 
     </header>
     <div class="dialog">
         <form>
@@ -63,8 +65,26 @@
         </div>
     </main>
     <div class="score-hide" id="score">
+        <div class="score-area">
+            <div class="score-area-upper">
+                SCORES
+            </div>
+            <div class="score-area-lower">
+                <div class="score">
+                    <span>X</span>
+                    <div class="score-display" id="score-1"></div>
+                </div>
+                <div class="score" id="tie-area">
+                    <span>TIE</span>
+                    <div class="score-display" id="score-tie"></div>
+                </div>
+                <div class="score">
+                    <span>O</span>
+                    <div class="score-display" id="score-2"></div>
+                </div>
+            </div>
+        </div>
         <button class="reset-hide" id="reset">RESET</button>
-
     </div>
 
 </body>
