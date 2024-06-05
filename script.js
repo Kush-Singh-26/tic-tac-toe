@@ -136,10 +136,9 @@ const GameController = (function (GameBoardModule, DisplayController) {
                     score2 = score2 + 1;
 
                     console.log(`X:${score1} Y:${score2}`)
-                DisplayController.resetBtn();
+                
             } else if (checkTie()) {
                 DisplayController.displayTie();
-                DisplayController.resetBtn();
 
             } else {
                 currentPlayer = currentPlayer === "X" ? "O" : "X";
