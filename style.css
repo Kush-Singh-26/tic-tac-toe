@@ -29,13 +29,13 @@ h1{
     border-radius: 8px;
 }
 
-a{
+.link{
     text-decoration: none;
     color: black;
     margin-right: 20px;
 }
 
-a:hover{
+.link:hover{
     color:#0077b6;
     border: 2px solid #0077b6;
     border-radius: 9px;
